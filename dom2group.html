@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+  <script src="kinetic-v5.0.0-beta.js"></script>
+  <body id="body">
+	<div id="divArqs">
+		<img id="image0" width="75px" src="http://images6.fanpop.com/image/photos/34100000/beautiful-picture-beautiful-pictures-34167733-352-500.jpg" draggable="true">
+		<script language="javascript">document.getElementById("image0").addEventListener('dragstart',function(e){dragSrcEl = this;document.getElementById('txtEvent').innerHTML = 'image 1 - dragstart';});</script>
+		<img id="image01" width="75px" src="http://socialyze.ca/wp-content/uploads/2014/01/home_alone.jpg"><BR>
+		<script language="javascript">document.getElementById("image01").addEventListener('dragstart',function(e){dragSrcEl = this;document.getElementById('txtEvent').innerHTML = 'image 2 - dragstart';});</script>
+	</div><BR>
+	Event:<div id="txtEvent">---</div><BR>
+    <div id="myDisplay"></div>
+
+    <script script="javascript">
+
+      var stage = new Kinetic.Stage({
+        container: 'myDisplay',
+        width: 300,
+        height: 300
+      });
+	  
+      var layer = new Kinetic.Layer();
+      var group = new Kinetic.Group({
+        clip: {
+          x: 3, 
+          y: 3, 
+          width: 146, 
+          height: 295
+        },
+        draggable: false,
+		listening:true,
+      });
+	  
+      var group2 = new Kinetic.Group({
+        clip: {
+          x: 152, 
+          y: 3, 
+          width: 148, 
+          height: 295
+        },
+        draggable: false,
+		listening:true,
+      });
+
+		var picture1 = new Image();
+		picture1.src = document.getElementById("image0").src;
+		var image1=new Kinetic.Image({ image:picture1,x:0,y:0,draggable:true, });
+
+		var picture2 = new Image();
+		picture2.src = document.getElementById("image01").src;
+		var image2=new Kinetic.Image({ image:picture2,x:0,y:0,draggable:true, });
+
+		group.add(image1);
+		group2.add(image2);
+		layer.add(group);
+		layer.add(group2);
+		stage.add(layer);
+		layer.draw();
+		
+		//****************************
+		
+
+	var con = stage.getContainer();    
+    var dragSrcEl = null;
+    //image
+    con.addEventListener('dragover',function(e){
+		document.getElementById('txtEvent').innerHTML = 'dragOver';
+        e.preventDefault(); //@important
+    });
+    //insert image to stage
+    con.addEventListener('drop',function(e){
+		document.getElementById('txtEvent').innerHTML = 'drop';
+        picture1.src = dragSrcEl.src;
+		layer.draw();
+     });
+	</script>
+</body>
+</html>
